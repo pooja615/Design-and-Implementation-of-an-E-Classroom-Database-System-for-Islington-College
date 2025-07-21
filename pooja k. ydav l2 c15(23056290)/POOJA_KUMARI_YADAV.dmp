@@ -1,0 +1,1322 @@
+-connect system;
+-create user Pooja_k_y identified by 23056290;
+- grant connect, resource to pooja_k_y;
+-connect pooja_k_y/23056290;
+-connect pooja_k_y/23056290;
+- create table student ( Student_ID NUMBER(10) PRIMARY KEY,Student_Name CHAR(30) NOT NULL,Student_Email CHAR(30) UNIQUE NOT NULL, Student_DOB DATE NOT NULL,Student_Address CHAR(50),Program_ID NUMBER(10));
+- create table program (Program_ID NUMBER(10) PRIMARY KEY,Program_Name CHAR(30) NOT NULL,Program_Description CHAR(30));
+- create table module ( Module_ID NUMBER(10) PRIMARY KEY,Module_Name VARCHAR2(100) NOT NULL,Module_Type VARCHAR2(50),Module_Description VARCHAR2(500),Module_Duration NUMBER(4));
+-  CREATE TABLE Module_Student (Module_ID NUMBER(10) NOT NULL, Student_ID NUMBER(10) NOT NULL,PRIMARY KEY (Module_ID, Student_ID),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID));
+- create table teacher (Teacher_ID NUMBER(10) PRIMARY KEY,Teacher_Name VARCHAR2(100) NOT NULL,Teacher_Address VARCHAR2(150),Teacher_Email VARCHAR2(100) UNIQUE NOT NULL);
+- create table module_teacher (Module_ID NUMBER(10),Teacher_ID NUMBER(10),PRIMARY KEY (Module_ID, Teacher_ID),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Teacher_ID) REFERENCES Teacher(Teacher_ID));
+- create table resourcees (Resource_ID NUMBER(10) PRIMARY KEY not null,Resource_Name CHAR(30) not null,Resource_Description CHAR(50)not null, Resource_Status CHAR(20) NOT NULL);
+-CREATE TABLE ResourceModule ( Resource_ID NUMBER NOT NULL,Module_ID NUMBER NOT NULL, Student_ID NUMBER NOT NULL, PRIMARY KEY (Resource_ID, Module_ID, Student_ID),FOREIGN KEY (Resource_ID) REFERENCES Resources(Resource_ID),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID), FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID));
+- create table announcements (Announcement_ID NUMBER(10) PRIMARY KEY,Module_ID NUMBER(10),Student_ID NUMBER(10),Announcement_Content CHAR(50),Announcement_Duration Number(10),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID));
+-CREATE TABLE Announcement_Module (Announcement_ID NUMBER PRIMARY KE
+Y,Module_ID NUMBER NOT NULL,Student_ID NUMBER NOT NULL,Teacher_ID NUMBER NOT NULL,FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID), FOREIGN KEY (Teacher_ID) REFERENCES Teacher(Teacher_ID));
+-create table assessments (Assessment_ID NUMBER(10) PRIMARY KEY,Assessment_Name CHAR(100),Assessment_Deadline DATE,Assessment_Duration NUMBER(4),Module_ID NUMBER(10),Resource_ID NUMBER(10),Teacher_ID NUMBER(10),Student_ID NUMBER(10),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Resource_ID) REFERENCES Resourcees(Resource_ID), FOREIGN KEY (Teacher_ID) REFERENCES Teacher(Teacher_ID), FOREIGN KEY (Student_ID) REFERENCES STUDENT(Student_ID));
+
+- create table result ( Result_ID NUMBER(10) PRIMARY KEY,Full_Marks NUMBER(4) NOT NULL,Pass_Marks NUMBER(4) NOT NULL,Obtained_Marks NUMBER(4)
+);
+- create table result_module ( Result_ID NUMBER(10),Student_ID NUMBER(10),PRIMARY KEY (Result_ID, Student_ID),FOREIGN KEY (Result_ID) REFERENCES Result(Result_ID),FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID));
+ create table assessmentTs (Assessment_ID NUMBER(10) PRIMARY KEY,Assessment_Name CHAR(100),Assessment_Deadline DATE,Assessment_Duration NUMBER(4),Assessment_Status CHAR(20),Module_ID NUMBER(10),Resource_ID NUMBER(10),Teacher_ID NUMBER(10),Student_ID NUMBER(10),FOREIGN KEY (Module_ID) REFERENCES Module(Module_ID),FOREIGN KEY (Resource_ID) REFERENCES Resourcees(Resource_ID), FOREIGN KEY (Teacher_ID) REFERENCES Teacher(Teacher_ID), FOREIGN KEY (Student_ID) REFERENCES STUDENT(Student_ID));
+
+Table created.
+
+SQL> DESC ASSESSMENTTS;
+ Name                                                                       Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ ASSESSMENT_ID
+    NOT NULL NUMBER(10)
+ ASSESSMENT_NAME
+     CHAR(100)
+ ASSESSMENT_DEADLINE
+     DATE
+ ASSESSMENT_DURATION
+     NUMBER(4)
+ ASSESSMENT_STATUS
+     CHAR(20)
+ MODULE_ID
+     NUMBER(10)
+ RESOURCE_ID
+     NUMBER(10)
+ TEACHER_ID
+     NUMBER(10)
+ STUDENT_ID
+     NUMBER(10)
+-  SELECT VALUE FROM NLS_SESSION_PARAMETERS WHERE PARAMETER = 'NLS_DATE_FORMAT';
+ INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)
+  2  VALUES (121, 'coursework of database', TO_DATE('2024-01-26', 'YYYY-MM-DD'), 3, 101, 600, 2400, 101, 'PENDING');
+
+1 row created.
+
+SQL> INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (122, 'MID TERM EXAM', TO_DATE('2024
+-01-26', 'YYYY-MM-DD'), 3, 102, 601, 2401, 102, 'PENDING');
+
+1 row created.
+ INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (123, 'DATABASE EXAM', TO_DATE('2024
+-01-26', 'YYYY-MM-DD'), 3, 103, 602, 2402, 102, 'ACTIVE');
+
+1 row created.
+
+SQL> INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (124, 'DATABASE EXAM', TO_DATE('2024
+-01-26', 'YYYY-MM-DD'), 3, 104, 602, 2403, 104, 'ACTIVE');
+
+1 row created.
+
+SQL> INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (125, 'CLOUD COMPUTING EXAM', TO_DAT
+E('2024-01-26', 'YYYY-MM-DD'), 3, 105, 604, 2404, 105, 'ACTIVE');
+
+1 row created.
+
+SQL> INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (126, 'CLOUD COMPUTING VIVA', TO_DAT
+E('2024-01-26', 'YYYY-MM-DD'), 3, 106, 605, 2405, 106, 'ACTIVE');
+
+1 row created.
+
+SQL> INSERT INTO assessmentts (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID, Assessment_Status)  VALUES (127, 'DATABASE VIVA', TO_DATE('2024
+-01-26', 'YYYY-MM-DD'), 3, 107, 606, 2406, 107, 'ACTIVE');
+
+1 row created.
+
+SQL> SELECT * FROM ASSESSMENTTS;
+
+ASSESSMENT_ID ASSESSMENT_NAME
+  ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS     MODULE_ID RESOURCE_ID
+------------- ---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- -----------
+TEACHER_ID STUDENT_ID
+---------- ----------
+          121 coursework of database
+  26-JAN-24                    3 PENDING                     101        600
+      2400        101
+
+          122 MID TERM EXAM
+  26-JAN-24                    3 PENDING                     102        601
+      2401        102
+
+          123 DATABASE EXAM
+  26-JAN-24                    3 ACTIVE                      103        602
+      2402        102
+
+
+ASSESSMENT_ID ASSESSMENT_NAME
+  ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS     MODULE_ID RESOURCE_ID
+------------- ---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- -----------
+TEACHER_ID STUDENT_ID
+---------- ----------
+          124 DATABASE EXAM
+  26-JAN-24                    3 ACTIVE                      104        602
+      2403        104
+
+          125 CLOUD COMPUTING EXAM
+  26-JAN-24                    3 ACTIVE                      105        604
+      2404        105
+
+          126 CLOUD COMPUTING VIVA
+  26-JAN-24                    3 ACTIVE                      106        605
+      2405        106
+
+
+ASSESSMENT_ID ASSESSMENT_NAME
+  ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS     MODULE_ID RESOURCE_ID
+------------- ---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- -----------
+TEACHER_ID STUDENT_ID
+---------- ----------
+          127 DATABASE VIVA
+  26-JAN-24                    3 ACTIVE                      107        606
+      2406        107
+
+
+7 rows selected.
+
+VALUE
+--------------------------------------------------------------------------------
+DD-MON-RR
+
+SQL> ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';-INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (101, 'Pooja Yadav', 'poojayadavedu07@gmail.com', TO_DATE('2006-04-25', 'YYYY-MM-DD'), 'Rajbiraj', '220');
+
+1 row created.
+
+SQL> INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (102, 'Prajwal Yadav', 'prajwalyadav323@gmail.com', TO_DATE(
+'2006-06-02', 'YYYY-MM-DD'), 'Rajbiraj', '221');
+
+1 row created.
+
+SQL> INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (103, 'Aarti Yadav', 'aartiyadav03@gmail.com', TO_DATE('2012
+-03-22', 'YYYY-MM-DD'), 'Rajbiraj', '223');
+
+1 row created.
+
+SQL> INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (104, 'Nitesh Yadav', 'niteshyadav03@gmail.com', TO_DATE('20
+00-08-02', 'YYYY-MM-DD'), 'parshahi', '224');
+
+1 row created.
+ INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (105, 'Rupesh Yadav', 'Rupeshyadav03@gmail.com', TO_DATE('20
+00-09-21', 'YYYY-MM-DD'), 'parshahi', '225');
+
+1 row created
+INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (106, 'Riya Yadav', 'riyayadav03@gmail.com', TO_DATE('2015-08-21', 'YYYY-MM-DD'), 'saptari', '226');
+
+1 row created.
+INSERT INTO Student (Student_ID, Student_Name, Student_Email, Student_DOB, Student_Address, Program_ID)
+  2  VALUES (107, 'chanakya Yadav', 'chanakyayadav22@gmail.com', TO_DATE('2011-08-21', 'YYYY-MM-DD'), 'saptari', '227');
+
+1 row created.
+
+Session altered.
+-  SET LINE 190;
+SQL>  select * from student;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_DO STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ ---------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com      2006-04-25 Rajbiraj                                                  220
+       102 Prajwal Yadav                  prajwalyadav323@gmail.com      2006-06-02 Rajbiraj                                                  221
+       103 Aarti Yadav                    aartiyadav03@gmail.com         2012-03-22 Rajbiraj                                                  223
+       104 Nitesh Yadav                   niteshyadav03@gmail.com        2000-08-02 parshahi                                                  224
+       105 Rupesh Yadav                   Rupeshyadav03@gmail.com        2000-09-21 parshahi                                                  225
+       106 Riya Yadav                     riyayadav03@gmail.com          2015-08-21 saptari                                                   226
+       107 chanakya Yadav                 chanakyayadav22@gmail.com      2011-08-21 saptari                                                   227
+
+7 rows selected.                                  225
+ desc program;
+ Name                                                                                                        Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ PROGRAM_ID                                                                                                  NOT NULL NUMBER(10)
+ PROGRAM_NAME                                                                                                NOT NULL CHAR(30)
+ PROGRAM_DESCRIPTION                                                                                                  CHAR(30)
+
+SQL> insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (100, 'computing', 'python')
+  3  ;
+
+1 row created.
+
+SQL> insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (101, 'multimedia', 'robotics');
+
+1 row created.
+
+SQL> insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (102, 'networking', 'ethical hacking');
+
+1 row created.
+
+SQL> insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (103, 'Artificial intelligence', 'AI description');
+
+1 row created.
+
+SQL> insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (104, 'mechanical engineering', 'engines related');
+
+1 row created.
+ insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (105, 'civil engineering', 'construction');
+
+1 row created.
+ insert into program (Program_ID, Program_Name, Program_Description)
+  2  values (106, 'web development', 'website');
+
+1 row created.
+
+-select *from program;
+
+PROGRAM_ID PROGRAM_NAME                   PROGRAM_DESCRIPTION
+---------- ------------------------------ ------------------------------
+       100 computing                      python
+       101 multimedia                     robotics
+       102 networking                     ethical hacking
+       103 Artificial intelligence        AI description
+       104 mechanical engineering         engines related
+       105 civil engineering              construction
+       106 web development                website
+
+7 rows selected.
+select * from module;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                           network resource                                                 3
+       102 Python     Python code                                        python def and coding                                            3
+       103 java       java coding                                        java defination                                                  3
+       104 SoftwareEn structured analysis                                Business case                                                    3
+       105 IOT        cloud computing                                    sensor detector                                                  3
+       106 logic      Mathmatics                                         Break analysis                                                   3
+       107 Programing java                                               java defination                                                  3
+
+7 rows selected.
+ SELECT * FROM MODULE WHERE MODULE_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                           network resource                                                 3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com      25-APR-06 Rajbiraj                                                  220
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (112, 101, 101, 'FAREWELL PROGRAM');
+
+1 row created.
+SELECT * FROM MODULE WHERE MODULE_ID = 102;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       102 Python     Python code                                        python def and coding                                            3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 102;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       102 Prajwal Yadav                  prajwalyadav323@gmail.com      02-JUN-06 Rajbiraj                                                  221
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (113, 102, 102, 'EXAM ROUTINE');
+
+1 row created.
+ SELECT * FROM MODULE WHERE MODULE_ID = 103;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       103 java       java coding                                        java defination                                                  3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 103;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       103 Aarti Yadav                    aartiyadav03@gmail.com         22-MAR-12 Rajbiraj                                                  223
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (114, 103, 103, 'ASSIGNMENT DEADLINE');
+
+1 row created.
+ SELECT * FROM MODULE WHERE MODULE_ID = 104;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       104 SoftwareEn structured analysis                                Business case                                                    3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 104;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       104 Nitesh Yadav                   niteshyadav03@gmail.com        02-AUG-00 parshahi                                                  224
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (115, 104, 104, 'GRADUATION DATE');
+
+1 row created.
+ SELECT * FROM MODULE WHERE MODULE_ID = 105;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       105 IOT        cloud computing                                    sensor detector                                                  3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 105;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       105 Rupesh Yadav                   Rupeshyadav03@gmail.com        21-SEP-00 parshahi                                                  225
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (116, 105, 105, 'COLLEGE ANNIVERSARY NEAR DUBAR MARG');
+
+1 row created.
+ SELECT * FROM MODULE WHERE MODULE_ID = 106;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       106 logic      Mathmatics                                         Break analysis                                                   3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 106;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       106 Riya Yadav                     riyayadav03@gmail.com          21-AUG-15 saptari                                                   226
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (117, 106, 106, 'CONCERT NEAR KUMARI HALL');
+
+1 row created.
+ SELECT * FROM MODULE WHERE MODULE_ID = 107;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       107 Programing java                                               java defination                                                  3
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 107;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       107 chanakya Yadav                 chanakyayadav22@gmail.com      21-AUG-11 saptari                                                   227
+
+SQL> INSERT INTO ANNOUNCEMENT ( ANNOUNCEMENT_ID, MODULE_ID, STUDENT_ID, ANNOUNCEMENT_CONTENT)
+  2  VALUES (118, 107, 107, 'CHIRISTMAS CELEBRATION NEAR BRIT CAFE');
+ set line 190;
+SQL> select * from announcement;
+
+ANNOUNCEMENT_ID  MODULE_ID STUDENT_ID ANNOUNCEMENT_CONTENT
+--------------- ---------- ---------- ---------------------------------------------
+            112        101        101 FAREWELL PROGRAM
+            113        102        102 EXAM ROUTINE
+            114        103        103 ASSIGNMENT DEADLINE
+            115        104        104 GRADUATION DATE
+            116        105        105 COLLEGE ANNIVERSARY NEAR DUBAR MARG
+            117        106        106 CONCERT NEAR KUMARI HALL
+            118        107        107 CHIRISTMAS CELEBRATION NEAR BRIT CAFE
+
+7 rows selected.
+
+1 row created.
+alter table teacher modify teacher_email char(40);
+
+Table altered.
+
+SQL> INSERT INTO TEACHER (TEACHER_ID, TEACHER_NAME, TEACHER_ADDRESS, TEACHER_EMAIL)
+  2  VALUES (2400, 'SHRESHA', 'GAUSHALA', 'shreshabhandari02@gmail.com');
+
+1 row created.
+ INSERT INTO TEACHER (TEACHER_ID, TEACHER_NAME, TEACHER_ADDRESS, TEACHER_EMAIL)
+  2  VALUES (2401, 'AVINAV', 'KRITIPUR', 'avinavneupane@gmail.com');
+
+1 row created.
+INSERT INTO TEACHER (TEACHER_ID, TEACHER_NAME, TEACHER_ADDRESS, TEACHER_EMAIL)
+  2  VALUES (2402, 'SUBHARNA', 'KOTESHWOR', 'subharnakarki01@gmail.com');
+
+1 row created.
+ insert into teacher (teacher_ID, teacher_name, teacher_address, teacher_email)
+  2  values (2403,'ABHISHEK', 'TINKUNE', 'abhishekbhatt233@gmail.com');
+
+1 row created.
+ insert into teacher (teacher_ID, teacher_name, teacher_address, teacher_email)
+  2  values (2404,'JAGARNATH', 'SANO THIMI', 'jagarnathpoudayal23@gmail.com');
+
+1 row created.
+ insert into teacher (teacher_ID, teacher_name, teacher_address, teacher_email)
+  2  values (2405,'SAUGAT', 'DHOBHIDHARA', 'saugatmanshakya13@gmail.com');
+
+1 row created.
+ select * from teacher;
+
+TEACHER_ID TEACHER_NA TEACHER_ADDRESS TEACHER_EMAIL
+---------- ---------- --------------- ----------------------------------------
+      2400 SHRESHA    GAUSHALA        shreshabhandari02@gmail.com
+      2401 AVINAV     KRITIPUR        avinavneupane@gmail.com
+      2402 SUBHARNA   KOTESHWOR       subharnakarki01@gmail.com
+      2403 ABHISHEK   TINKUNE         abhishekbhatt233@gmail.com
+      2404 JAGARNATH  SANO THIMI      jagarnathpoudayal23@gmail.com
+      2405 SAUGAT     DHOBHIDHARA     saugatmanshakya13@gmail.com
+      2406 DIPESHOR   BALUWATAR       dipeshorsilwal03@gmail.com
+
+7 rows selected.
+ SELECT * FROM MODULE WHERE MODULE_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                           network resource                                                 3
+SELECT * FROM TEACHER WHERE TEACHER_ID = 2400;
+
+TEACHER_ID TEACHER_NA TEACHER_ADDRESS TEACHER_EMAIL
+---------- ---------- --------------- ----------------------------------------
+      2400 SHRESHA    GAUSHALA        shreshabhandari02@gmail.com
+ INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (101, 2400);
+
+1 row created.
+ INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (101, 2400);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (102, 2401);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (103, 2402);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (104, 2403);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (105, 2404);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (106, 2405);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_TEACHER ( MODULE_ID, TEACHER_ID)
+  2  VALUES (107, 2406);
+
+1 row created.
+ SELECT * FROM MODULE_TEACHER;
+
+ MODULE_ID TEACHER_ID
+---------- ----------
+       101       2400
+       102       2401
+       103       2402
+       104       2403
+       105       2404
+       106       2405
+       107       2406
+
+7 rows selected.
+  INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (600,'IOT Department', 'components Related','available');
+
+1 row created.
+
+SQL> INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (601,'Lab', 'study','available');
+
+1 row created.
+
+SQL> INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (602,'Student Service','information','avail
+able');
+
+1 row created.
+INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (603,'Student Service','information','avail
+able');
+
+1 row created.
+
+SQL> INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (604,'RTE','FOR INFORMATION','available');
+
+1 row created.
+
+SQL> INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (605,'LIBRARY','FOR STUDY','available');
+
+1 row created.
+
+SQL> INSERT INTO Resourcees (Resource_ID,Resource_Name, Resource_Description,Resource_Status) VALUES (606,'HALL','FOR STUDY','available');
+
+1 row created.
+ SET LINE 190;
+SQL> SELECT * FROM RESOURCEES;
+
+RESOURCE_ID RESOURCE_NAME                  RESOURCE_DESCRIPTION                               RESOURCE_STATUS
+----------- ------------------------------ -------------------------------------------------- --------------------
+        600 IOT Department                 components Related                                 available
+        601 Lab                            study                                              available
+        602 Student Service                information                                        available
+        603 Student Service                information                                        available
+        604 RTE                            FOR INFORMATION                                    available
+        605 LIBRARY                        FOR STUDY                                          available
+        606 HALL                           FOR STUDY                                          available
+
+7 rows selected.
+ desc  Announcement_Module;
+ Name                                                                       Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ ANNOUNCEMENT_ID
+    NOT NULL NUMBER
+ MODULE_ID
+    NOT NULL NUMBER
+ STUDENT_ID
+    NOT NULL NUMBER
+ TEACHER_ID
+    NOT NULL NUMBER
+ select * from announcement where announcement_ID = 112;
+
+ANNOUNCEMENT_ID  MODULE_ID STUDENT_ID ANNOUNCEMENT_CONTENT
+--------------- ---------- ---------- ---------------------------------------------
+            112        101        101 FAREWELL PROGRAM
+
+SQL> select * from module where module_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE
+MODULE_DESCRIPTION                                  MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system
+network resource                                                  3
+
+SQL> select * from student where student_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com     25-APR-06 Rajbiraj                                                   220
+
+SQL> select * from teacher where teacher_ID = 2400;
+
+TEACHER_ID TEACHER_NA TEACHER_ADDRESS TEACHER_EMAIL
+---------- ---------- --------------- ----------------------------------------
+      2400 SHRESHA    GAUSHALA        shreshabhandari02@gmail.com
+ insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (112, 101, 101, 2400);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (113, 102, 102, 2401);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (114, 103, 103, 2402);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (115, 104, 104, 2403);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (116, 105, 105, 2404);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (117, 106, 106, 2405);
+
+1 row created.
+
+SQL> insert into announcement_module (Announcement_ID, Module_ID, Student_ID, Teacher_ID) values (118, 107, 107, 2406);
+
+1 row created.
+
+ select * from announcement_module;
+
+ANNOUNCEMENT_ID  MODULE_ID STUDENT_ID TEACHER_ID
+--------------- ---------- ---------- ----------
+            112        101        101       2400
+            113        102        102       2401
+            114        103        103       2402
+            115        104        104       2403
+            116        105        105       2404
+            117        106        106       2405
+            118        107        107       2406
+
+7 rows selected.
+ desc result;
+ Name                                                                       Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ RESULT_ID
+    NOT NULL NUMBER(10)
+ FULL_MARKS
+    NOT NULL NUMBER(4)
+ PASS_MARKS
+    NOT NULL NUMBER(4)
+ OBTAINED_MARKS
+     NUMBER(4)
+
+insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MA
+RKS) VALUES ( 2211, 100, 40, 75);
+
+1 row created.
+insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2212, 100, 40, 73);
+
+1 row created.
+
+SQL> insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2213, 100, 40, 65);
+
+1 row created.
+
+SQL> insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2214, 100, 40, 68);
+
+1 row created.
+
+SQL> insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2215, 100, 40, 69);
+
+1 row created.
+
+SQL> insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2216, 100, 40, 50);
+
+1 row created.
+
+SQL> insert into result ( RESULT_ID, FULL_MARKS, PASS_MARKS, OBTAINED_MARKS) VALUES ( 2217, 100, 40, 59);
+
+1 row created.
+ select * from result;
+
+ RESULT_ID FULL_MARKS PASS_MARKS OBTAINED_MARKS
+---------- ---------- ---------- --------------
+      2211        100         40             75
+      2212        100         40             73
+      2213        100         40             65
+      2214        100         40             68
+      2215        100         40             69
+      2216        100         40             50
+      2217        100         40             59
+
+7 rows selected
+ SELECT * FROM MODULE WHERE MODULE_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                       MODULE_DESCRIPTION                                  MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                          network resource                                                  3
+
+SQL> SELECT * FROM TEACHER WHERE TEACHER_ID = 2400;
+
+TEACHER_ID TEACHER_NA TEACHER_ADDRESS TEACHER_EMAIL
+---------- ---------- --------------- ----------------------------------------
+      2400 SHRESHA    GAUSHALA        shreshabhandari02@gmail.com
+ SELECT * FROM RESOURCEES WHERE RESOURCE_ID = 600;
+
+RESOURCE_ID RESOURCE_NAME                  RESOURCE_DESCRIPTION
+     RESOURCE_STATUS
+----------- ------------------------------ -------------------------------------------------- --------------------
+        600 IOT Department                 components Related
+     available
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com     25-APR-06 Rajbiraj   
+ INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3211, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 101, 600, 2400, 101);
+
+1 row created.
+
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3212, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 102, 601, 2401, 102);
+1 row created.
+
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3213, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 103, 602, 2402, 103);
+1 row created.
+
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3214, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 104, 603, 2403, 104);
+1 row created.
+
+SQL> VALUES (3215, 'Cloud Computing Assessment', TO_DATE('2025-01-20', '
+YYYY-MM-DD'), 3, 105, 604, 2404, 105);
+SP2-0734: unknown command beginning "VALUES (32..." - rest of line ignored.
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3215, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 105, 604, 2404, 105);
+
+1 row created.
+
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3216, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 106, 605, 2405, 106);
+1 row created.
+
+SQL> INSERT INTO Assessments (Assessment_ID, Assessment_Name, Assessment_Deadline, Assessment_Duration, Module_ID, Resource_ID, Teacher_ID, Student_ID)
+  2  VALUES (3217, 'Cloud Computing Assessment', TO_DATE('2025-01-20', 'YYYY-MM-DD'), 3, 107, 606, 2406, 107);
+1 row created.
+ASSESSMENT_ID ASSESSMENT_NAME                                                                                      ASSESSMEN ASSESSMENT_DURATION  MODULE_ID RESOURCE_ID TEACHER_ID STUDENT_ID
+------------- ---------------------------------------------------------------------------------------------------- --------- ------------------- ---------- ----------- ---------- ----------
+         3211 Cloud Computing Assessment                                                                           20-JAN-25                   3   101          600       2400        101
+         3212 Cloud Computing Assessment                                                                           20-JAN-25                   3   102          601       2401        102
+         3213 Cloud Computing Assessment                                                                           20-JAN-25                   3   103          602       2402        103
+         3214 Cloud Computing Assessment                                                                           20-JAN-25                   3   104          603       2403        104
+         3215 Cloud Computing Assessment                                                                           20-JAN-25                   3   105          604       2404        105
+         3216 Cloud Computing Assessment                                                                           20-JAN-25                   3   106          605       2405        106
+         3217 Cloud Computing Assessment                                                                           20-JAN-25                   3   107          606       2406        107
+
+7 rows selected.
+DESC RESULT_MODULE;
+ Name                                                                                                        Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ RESULT_ID                                                                                                   NOT NULL NUMBER(10)
+ STUDENT_ID                                                                                                  NOT NULL NUMBER(10)
+
+SQL> SELECT * FROM RESULT WHERE RESULT_ID = 2211;
+
+ RESULT_ID FULL_MARKS PASS_MARKS OBTAINED_MARKS
+---------- ---------- ---------- --------------
+      2211        100         40             75
+
+SQL> SELECT * FROM RESULT WHERE RESULT_ID = 2211;
+
+ RESULT_ID FULL_MARKS PASS_MARKS OBTAINED_MARKS
+---------- ---------- ---------- --------------
+      2211        100         40             75
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                                    PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com      25-APR-06 Rajbiraj                                                  220
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2211,101)
+;
+
+1 row created.
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2212,102)
+;
+
+1 row created.
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2213,103)
+;
+
+1 row created.
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2214,104)
+;
+
+1 row created.
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2215,105)
+;
+
+1 row created.
+
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2216,106)
+;
+
+1 row      ed.
+SQL>
+SQL> INSERT INTO RESULT_MODULE (RESULT_ID, STUDENT_ID) VALUES (2217,107)
+SQL>
+SQL>
+SQL>  created.
+SQL>
+SQL> SELECT * FROM RESULT_MODULE;
+
+ RESULT_ID STUDENT_ID
+---------- ----------
+      2211        101
+      2212        102
+      2213        103
+      2214        104
+      2215        105
+      2216        106
+      2217        107
+
+7 rows selected.
+
+ desc module_student;
+ Name                                                                       Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ MODULE_ID
+    NOT NULL NUMBER(10)
+ STUDENT_ID
+    NOT NULL NUMBER(10)
+
+SQL> select * from student_module;
+
+no rows selected
+
+SQL> SELECT * FROM STUDENT WHERE STUDENT_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                 STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com     25-APR-06 Rajbiraj                                                   220
+
+SQL> SELECT * FROM module WHERE module_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE
+MODULE_DESCRIPTION                                  MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system
+network resource                                                  3
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (101, 101
+);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (102, 102
+);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (103, 103
+);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (104, 104
+);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (105, 105
+);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (106, 106);
+
+1 row created.
+
+SQL> INSERT INTO MODULE_STUDENT (STUDENT_ID, MODULE_ID) VALUES (107, 107);
+
+1 row created.
+SQL> SELECT * FROM MODULE_STUDENT;
+
+ MODULE_ID STUDENT_ID
+---------- ----------
+       101        101
+       102        102
+       103        103
+       104        104
+       105        105
+       106        106
+       107        107
+
+7 rows selected.
+ desc resourcemodule;
+ Name                                                                                                        Null?    Type
+ ----------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------
+ RESOURCE_ID                                                                                                 NOT NULL NUMBER
+ MODULE_ID                                                                                                   NOT NULL NUMBER
+ STUDENT_ID                                                                                                  NOT NULL NUMBER
+
+SQL> select * from resourcees where resource_ID = 600;
+
+RESOURCE_ID RESOURCE_NAME                  RESOURCE_DESCRIPTION                               RESOURCE_STATUS
+----------- ------------------------------ -------------------------------------------------- --------------------
+        600 IOT Department                 components Related                                 available
+
+SQL> select * from module where module_ID = 101;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION
+   MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                           network resource
+ 3
+
+SQL> select * from student where student_ID = 101;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL                  STUDENT_D STUDENT_ADDRESS                           PROGRAM_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ----------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com      25-APR-06 Rajbiraj                                 220
+ SELECT p.Program_Name, COUNT(s.Student_ID) AS TotalStudents from program p left join student s ON p.Program_ID = s.Program_ID group by p. PRogram_Name
+  2  ;
+
+PROGRAM_NAME                   TOTALSTUDENTS
+------------------------------ -------------
+computing                                  0
+Artificial intelligence                    0
+networking                                 0
+multimedia                                 0
+civil engineering                          0
+mechanical engineering                     0
+web development                            0
+
+7 rows selected.
+ SELECT t.Teacher_Name, COUNT(mt.Module_ID) AS Module_Taught
+  2  FROM teacher t
+  3  JOIN module_teacher mt ON t.teacher_ID = mt.Teacher_ID
+  4  GROUP BY t.Teacher_Name;
+
+TEACHER_NA MODULE_TAUGHT
+---------- -------------
+AVINAV                 1
+ABHISHEK               1
+SUBHARNA               1
+JAGARNATH              1
+SAUGAT                 1
+SHRESHA                1
+DIPESHOR               1
+
+7 rows selected.
+
+SQL>  SELECT p.Program_Name,p.Program_ID,p.Program_Description, COUNT(s.Student_ID) AS TotalStudents from program p left join student s ON p.Program_ID = s.Program_ID group by p. Program_Name,p.program_description, p.program_ID;
+
+PROGRAM_NAME                   PROGRAM_ID PROGRAM_DESCRIPTION
+TOTALSTUDENTS
+------------------------------ ---------- ------------------------------ -------------
+civil engineering                     105 construction
+    0
+Artificial intelligence               103 AI description
+    0
+multimedia                            101 robotics
+    0
+networking                            102 ethical hacking
+    0
+web development                       106 website
+    0
+mechanical engineering                104 engines related
+    0
+computing                             100 python
+    0
+
+7 rows selected.
+ insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2200, 101, 101, 'farewell program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2201, 102, 102, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2202, 103, 103, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2203, 104, 104, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2204, 105, 105, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2205, 106, 106, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> insert into announcements (announcement_ID,Module_ID, Student_ID, Announcement_Content,Announcement_Duration) values( 2206, 107, 107, 'fare
+well program', 3);
+
+1 row created.
+
+SQL> SELECT * FROM ANNOUNCEMENTS;
+
+ANNOUNCEMENT_ID  MODULE_ID STUDENT_ID ANNOUNCEMENT_CONTENT
+ANNOUNCEMENT_DURATION
+--------------- ---------- ---------- -------------------------------------------------- ---------------------
+           2200        101        101 farewell program
+    3
+           2201        102        102 farewell program
+    3
+           2202        103        103 farewell program
+    3
+           2203        104        104 farewell program
+    3
+           2204        105        105 farewell program
+    3
+SQL>       2205        106        106 farewell program
+SQL>
+SQL>       2206        107        107 farewell program
+SQL>
+SQL>
+7 rows selected.
+ SELECT m.module_name, COUNT(r.resource_id) AS total_resources FROM module m JOIN resourcees r ON m.module_id = r.module_id WHERE m.module_name LIKE 'H%' GROUP BY m.module_name;
+
+no rows selected
+ALTER TABLE announcement
+  2  ADD announcement_date DATE;
+
+Table altered.
+ UPDATE announcement SET announcement_date = TO_DATE('2024-05-01', 'YYYY-MM-DD')  WHERE announcement_id = 2400;
+
+0 rows updated.
+
+
+SQL> SELECT m.module_name
+  2  FROM module m
+  3  WHERE m.module_name LIKE 'j%';
+
+MODULE_NAM
+----------
+java
+ SELECT s.student_name, p.program_name FROM student s JOIN program p ON s.program_id = p.program_id LEFT JOIN assessmentts a ON s.student_id = a.student_id AND a.module_id = 102 WHERE a.assessment_id IS NULL;
+
+no rows selected
+select * from announcement;
+
+ANNOUNCEMENT_ID  MODULE_ID STUDENT_ID ANNOUNCEMENT_CONTENT
+   ANNOUNCEM
+--------------- ---------- ---------- --------------------------------------------- ---------
+            112        101        101 FAREWELL PROGRAM
+            113        102        102 EXAM ROUTINE
+            114        103        103 ASSIGNMENT DEADLINE
+            115        104        104 GRADUATION DATE
+            116        105        105 COLLEGE ANNIVERSARY NEAR DUBAR MARG
+            117        106        106 CONCERT NEAR KUMARI HALL
+            118        107        107 CHIRISTMAS CELEBRATION NEAR BRIT CAFE
+
+7 rows selected.
+ SELECT a.announcement_id, a.module_id, a.announcement_content, a.announcement_date FROM announcement a WHERE a.module_id = 101 AND a.announcement_date BETWEEN TO_DATE('2024-05-01', 'YYYY-MM-DD') AND TO_DATE('2024-05-28', 'YYYY-MM-DD');
+
+no rows selected
+> UPDATE announcement SET announcement_date = TO_DATE('2024-05-01', 'YYYY-MM-DD')  WHERE announcement_id = 112;
+
+1 row updated.
+
+SQL> SELECT a.announcement_id, a.module_id, a.announcement_content, a.announcement_date FROM announcement a WHERE a.module_id = 101 AND a.announcement_date BETWEEN TO_DATE('2024-05-01', 'YYYY-MM-DD') AND TO_DATE('2024-05-28', 'YYYY-MM-DD');
+
+ANNOUNCEMENT_ID  MODULE_ID ANNOUNCEMENT_CONTENT
+ANNOUNCEM
+--------------- ---------- --------------------------------------------- ---------
+            112        101 FAREWELL PROGRAM
+01-MAY-24
+
+transaction query
+ SELECT module_id, latest_deadline
+  2  FROM (
+  3      SELECT module_id, MAX(assessment_deadline) AS latest_deadline
+  4      FROM assessmentTs
+  5      GROUP BY module_id
+  6      ORDER BY latest_deadline DESC
+  7  )
+  8  WHERE ROWNUM = 1;
+
+ MODULE_ID LATEST_DE
+---------- ---------
+       102 26-JAN-24
+ SELECT student_name, total_assessment_score
+  2  FROM (
+  3      SELECT s.student_name, SUM(a.assessment_score) AS total_assessment_score
+  4      FROM student s
+  5      JOIN assessmentts a ON s.student_id = a.student_id
+  6      GROUP BY s.student_name
+  7      ORDER BY total_assessment_score DESC
+  8  )
+  9  WHERE ROWNUM <= 3;
+
+STUDENT_NAME                   TOTAL_ASSESSMENT_SCORE
+------------------------------ ----------------------
+chanakya Yadav
+Pooja Yadav
+Prajwal Yadav
+SQL> SELECT p.program_name,
+  2         COUNT(a.assessment_id) AS total_assessments,
+  3         AVG(a.assessment_score) AS average_score
+  4  FROM program p
+  5  JOIN student s ON p.program_id = s.program_id
+  6  JOIN assessmentts a ON s.student_id = a.student_id
+  7  WHERE a.assessment_score IS NOT NULL
+  8  GROUP BY p.program_name;
+
+no rows selected
+
+SQL> SELECT COUNT(*) FROM program;
+
+  COUNT(*)
+----------
+         7
+
+SQL> SELECT COUNT(*) FROM student;
+
+  COUNT(*)
+----------
+         7
+
+SQL> SELECT COUNT(*) FROM assessmentts;
+
+  COUNT(*)
+----------
+         7
+
+SQL> SELECT s.student_id, s.program_id, a.assessment_id, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  WHERE ROWNUM <= 10;
+
+STUDENT_ID PROGRAM_ID ASSESSMENT_ID ASSESSMENT_SCORE
+---------- ---------- ------------- ------------------------------
+       101        220           121
+       102        221           122
+       102        221           123
+       104        224           124
+       105        225           125
+       106        226           126
+       107        227           127
+
+7 rows selected.
+
+SQL> SELECT s.student_id, s.program_id, a.assessment_id, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  WHERE ROWNUM <= 10;
+
+STUDENT_ID PROGRAM_ID ASSESSMENT_ID ASSESSMENT_SCORE
+---------- ---------- ------------- ------------------------------
+       101        220           121
+       102        221           122
+       102        221           123
+       104        224           124
+       105        225           125
+       106        226           126
+       107        227           127
+
+7 rows selected.
+
+SQL> SELECT p.program_name,
+  2         COUNT(a.assessment_id) AS total_assessments,
+  3         AVG(a.assessment_score) AS average_score
+  4  FROM program p
+  5  JOIN student s ON p.program_id = s.program_id
+  6  JOIN assessmentts a ON s.student_id = a.student_id
+  7  WHERE a.assessment_score IS NOT NULL
+  8  GROUP BY p.program_name;
+
+no rows selected
+
+SQL> SELECT s.student_name, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  JOIN module m ON a.module_id = m.module_id
+  5  WHERE m.module_name = 'programming java'
+  6  AND a.assessment_score > (SELECT AVG(assessment_score)
+  7                               FROM assessmentts
+  8                               WHERE module_id = a.module_id);
+
+no rows selected
+
+SQL> SELECT s.student_name, a.assessment_score
+  2    2  FROM student s
+  3    3  JOIN assessmentts a ON s.student_id = a.student_id
+  4    4  JOIN module m ON a.module_id = m.module_id
+  5    5  WHERE m.module_name = 'programming java;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> SELECT s.student_name, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  JOIN module m ON a.module_id = m.module_id
+  5  WHERE m.module_name = 'programing java' AND a.assessment_score > (SELECT AVG(assessment_score) FROM assessmentts WHERE module_id = a.module_id);
+
+no rows selected
+
+SQL> SELECT * FROM module WHERE module_name = 'Programing java';
+
+no roSs selected
+SP2-0042: unknown command "S" - rest of line ignored.
+SQL>
+SQL> set line 190;
+SQL> select * from module;
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       101 Hardware   network operating system                           network resource                                                 3
+       102 Python     Python code                                        python def and coding                                            3
+       103 java       java coding                                        java defination                                                  3
+       104 SoftwareEn structured analysis                                Business case                                                    3
+       105 IOT        cloud computing                                    sensor detector                                                  3
+       106 logic      Mathmatics                                         Break analysis                                                   3
+       107 Programing java                                               java defination                                                  3
+
+7 rows selected.
+
+SQL> SELECT * FROM module WHERE module_name = 'Programing';
+
+ MODULE_ID MODULE_NAM MODULE_TYPE                                        MODULE_DESCRIPTION                                 MODULE_DURATION
+---------- ---------- -------------------------------------------------- -------------------------------------------------- ---------------
+       107 Programing java                                               java defination                                                  3
+
+SQL> SELECT * FROM assessmentts
+  2  JOIN module m ON assessmentts.module_id = m.module_id
+  3  WHERE m.module_name = 'Databases';
+
+no rows selected
+
+SQL> SELECT * FROM assessmentts
+  2  JOIN module m ON assessmentts.module_id = m.module_id
+  3  WHERE m.module_name = 'programing';
+
+no rows selected
+
+SQL> SELECT * FROM student s
+  2  LEFT JOIN assessmentts a ON s.student_id = a.student_id
+  3  WHERE a.student_id IS NOT NULL;
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID ASSESSMENT_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ---------- -------------
+ASSESSMENT_NAME
+    ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS      MODULE_ID RESOURCE_ID TEACHER_ID
+---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- ----------- ----------
+STUDENT_ID ASSESSMENT_SCORE               AVERAGE_SCORE
+---------- ------------------------------ -------------
+       101 Pooja Yadav                    poojayadavedu07@gmail.com     25-APR-06 Rajbiraj                                                   220   121
+coursework of database
+    26-JAN-24                    3 PENDING                     101        600        2400
+       101
+
+       102 Prajwal Yadav                  prajwalyadav323@gmail.com     02-JUN-06 Rajbiraj                                                   221   122
+MID TERM EXAM
+    26-JAN-24                    3 PENDING                     102        601        2401
+       102
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID ASSESSMENT_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ---------- -------------
+ASSESSMENT_NAME
+    ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS      MODULE_ID RESOURCE_ID TEACHER_ID
+---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- ----------- ----------
+STUDENT_ID ASSESSMENT_SCORE               AVERAGE_SCORE
+---------- ------------------------------ -------------
+
+       102 Prajwal Yadav                  prajwalyadav323@gmail.com     02-JUN-06 Rajbiraj                                                   221   123
+DATABASE EXAM                                                               26-JAN-24                    3 ACTIVE                      103        602        2402
+       102
+
+       104 Nitesh Yadav                   niteshyadav03@gmail.com       02-AUG-00 parshahi                                                   224   124
+DATABASE EXAM
+    26-JAN-24                    3 ACTIVE                      104        602        2403
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID ASSESSMENT_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ---------- -------------
+ASSESSMENT_NAME
+    ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS      MODULE_ID RESOURCE_ID TEACHER_ID
+---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- ----------- ----------
+STUDENT_ID ASSESSMENT_SCORE               AVERAGE_SCORE
+---------- ------------------------------ -------------
+       104
+
+       105 Rupesh Yadav                   Rupeshyadav03@gmail.com       21-SEP-00 parshahi                                                   225   125
+CLOUD COMPUTING EXAM
+    26-JAN-24                    3 ACTIVE                      105        604        2404
+       105
+
+       106 Riya Yadav                     riyayadav03@gmail.com
+21-AUG-15 saptari                                                    226   126
+
+STUDENT_ID STUDENT_NAME                   STUDENT_EMAIL
+STUDENT_D STUDENT_ADDRESS                                     PROGRAM_ID ASSESSMENT_ID
+---------- ------------------------------ ------------------------------ --------- -------------------------------------------------- ---------- -------------
+ASSESSMENT_NAME
+    ASSESSMEN ASSESSMENT_DURATION ASSESSMENT_STATUS      MODULE_ID RESOURCE_ID TEACHER_ID
+---------------------------------------------------------------------------------------------------- --------- ------------------- -------------------- ---------- ----------- ----------
+STUDENT_ID ASSESSMENT_SCORE               AVERAGE_SCORE
+---------- ------------------------------ -------------
+CLOUD COMPUTING VIVA
+    26-JAN-24                    3 ACTIVE                      106        605        2405
+       106
+
+       107 chanakya Yadav                 chanakyayadav22@gmail.com     21-AUG-11 saptari                                                    227   127
+DATABASE VIVA
+    26-JAN-24                    3 ACTIVE                      107        606        2406
+       107
+
+
+7 rows selected.
+
+SQL> SELECT s.student_name, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  JOIN module m ON a.module_id = m.module_id
+  5  WHERE m.module_name = 'Databases'
+  6    AND a.assessment_score > (SELECT AVG(assessment_score)
+  7                               FROM assessmentts
+  8                               WHERE module_id = a.module_id)
+  9    AND a.assessment_score IS NOT NULL;
+
+no rows selected
+
+SQL> SELECT * FROM assessmentts
+  2  JOIN module m ON assessmentts.module_id = m.module_id
+  3  WHERE m.module_name = 'hardware';
+
+no rows selected
+ SELECT s.student_name, a.assessment_score
+  2  FROM student s
+  3  JOIN assessmentts a ON s.student_id = a.student_id
+  4  JOIN module m ON a.module_id = m.module_id
+  5  WHERE m.module_name = 'Databases'
+  6    AND a.assessment_score > (SELECT AVG(assessment_score)
+  7                               FROM assessmentts
+  8                               WHERE module_id = a.module_id);
+
+no rows selected
+
